@@ -1,7 +1,7 @@
 #Create user able to list namespaces and pods in all the clusters, 
 #but have all permissions in test namespace
 #ns creation
-kubectl create ns test
+kubectl create ns test;
 
 #sa creation
 kubectl create serviceaccount test-admin -n test;
