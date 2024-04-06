@@ -50,7 +50,7 @@ trivy k8s --scaners vuln --report summary cluster;
 # │             │                                                                        │ C │ H │ M │ L  │ U │
 # ├─────────────┼────────────────────────────────────────────────────────────────────────┼───┼───┼───┼────┼───┤
 # │             │ Node/ip-172-31-29-63.eu-west-2.compute.internal                        │   │   │ 1 │    │   │
-# │             │ Node/ip-172-31-26-79.eu-west-2.compute.internal                        │   │   │ 1 │    │   │
+# │             │ Node/server.eu-west-2.compute.internal                        │   │   │ 1 │    │   │
 
 # Severities: C=CRITICAL H=HIGH M=MEDIUM L=LOW U=UNKNOWN
 
