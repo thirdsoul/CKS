@@ -67,9 +67,9 @@ systemctl status kubelet;
 journalctl -xeu kubelet;
 kubectl get nodes;
 # NAME                                          STATUS                     ROLES           AGE    VERSION
-# ip-172-31-26-79.eu-west-2.compute.internal    Ready,SchedulingDisabled   control-plane   366d   v1.27.12
-# ip-172-31-27-231.eu-west-2.compute.internal   NotReady                   <none>          366d   v1.26.3
-# ip-172-31-29-63.eu-west-2.compute.internal    Ready                      <none>          366d   v1.26.3
+# a    Ready,SchedulingDisabled   control-plane   366d   v1.27.12
+# b    NotReady                   <none>          366d   v1.26.3
+# c    Ready                      <none>          366d   v1.26.3
 
 kubectl version;
 # WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.  Use --output=yaml|json to get the full version.

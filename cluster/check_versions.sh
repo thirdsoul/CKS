@@ -7,9 +7,9 @@ kubectl cluster-info;
 kubectl get nodes;
 # [ec2-user@ip-172-31-26-79 ~]$ k get no
 # NAME                                          STATUS     ROLES           AGE    VERSION
-# ip-172-31-26-79.eu-west-2.compute.internal    Ready      control-plane   366d   v1.26.3
-# ip-172-31-27-231.eu-west-2.compute.internal   NotReady   <none>          366d   v1.26.3
-# ip-172-31-29-63.eu-west-2.compute.internal    Ready      <none>          366d   v1.26.3
+# a    Ready      control-plane   366d   v1.26.3
+# b    NotReady   <none>          366d   v1.26.3
+# c    Ready      <none>          366d   v1.26.3
 
 kubectl version;
 # [ec2-user@ip-172-31-26-79 ~]$ k version
