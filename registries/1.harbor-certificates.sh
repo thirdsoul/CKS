@@ -42,3 +42,22 @@ openssl x509 -req -sha512 -days 3650 \
     -out harbor.dominio.net.crt;
 
 
+#Distribute CA certs to linux servers and containerd
+sudo yum install ca-certificates
+sudo cp mycert.crt /etc/pki/ca-trust/source/anchors/
+sudo update-ca-trust force-enable
+sudo update-ca-trust extract
+
+#Modify containerd to accept CA certs to trust
+#change in /etc/containerd/config.toml and include certs path
+#    [plugins."io.containerd.grpc.v1.cri".registry]
+#      config_path = "/etc/containerd/certs.d"
+# For docker
+#copy directly in /etc/docker/certs.d
+cp catest.crt /etc/containerd/certs.d/
+systemctl daemon-reload
+systemctl restart containerd
+
+#Copy certificates in nginx  /etc/nginx/nginx.conf
+    # ssl_certificate /home/ec2-user/data/certs/harbor.dominio.net.pem;
+    # ssl_certificate_key /home/ec2-user/data/certs/harbor.dominio.net.key;

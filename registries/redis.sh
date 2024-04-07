@@ -1,1 +1,0 @@
-helm install my-release oci://REGISTRY_NAME/REPOSITORY_NAME/redis
