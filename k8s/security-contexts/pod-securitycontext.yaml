@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  securityContext:                   #Security context can be define at pod or container level. capabilities, for example, only at container level.
+    runAsUser: 1000                 
+    runAsGroup: 3000
+    fsGroup: 2000
+    seccompProfile:                #Define Seccomp Profile at pod or container level. 
+      type: RuntimeDefault         #RuntimeDefault, Unconfined, and Localhost
+      localhostProfile: /somepath/seccomp.profile.json   #Only if Localhost seccompProfile type is defined.
+    seLinuxOptions:                #Assign SELinux labels at Pod or Container level. 
+      level: "s0:c123,c456"        #To assign SELinux labels, the SELinux security module must be loaded on the host operating system
+  containers:
+  - image: nginx
+    name: nginx
+    securityContext:
+      runAsUser: 1000                 
+      runAsGroup: 3000
+      fsGroup: 2000                  #This apply to Volumes also! not only to the contents of the pod.
+      readOnlyRootFilesystem: true   #This forbid to write inside a pod.#
+      privileged: true               #This forbid or allow the use of provileged
+      fsGroupChangePolicy: "OnRootMismatch"
+      capabilities:
+        add: ["NET_ADMIN", "SYS_TIME"]
+        drop: ["CHOWN"]
+    volumeMounts:                    #DEFINE INMUTABLE CONTAINER. Paths where we know pod needs to write are created as pod volumes, when readOnlyRootFileSystem is enabled.
+    - name: cache-volume
+      mountPath: /var/cache/nginx
+    - name: runtime-volume
+      mountPath: /var/run
+  volumes:                           #DEFINE INMUTABLE CONTAINER. Paths where we know pod needs to write are created as pod volumes, when readOnlyRootFileSystem is enabled.
+  - name: cache-volume   
+    emptyDir: {}
+  - name: runtime-volume
+    emptyDir: {}
+
+
+# root@controlplane:~# kubectl logs nginx
+# .
+# .
+# 2021/04/12 15:14:39 [emerg] 1#1: mkdir() 
+# "/var/cache/nginx/client_temp" failed (30: Read-only 
+# file system)
+# .
+# 2021/04/12 16:11:26 [emerg] 1#1: open() 
+# "/var/run/nginx.pid" failed (30: Read-only file system)
+# nginx: [emerg] open() "/var/run/nginx.pid" failed (30: 
+# Read-only file system)

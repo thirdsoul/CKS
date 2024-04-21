@@ -19,6 +19,10 @@ cat /etc/crictl.yaml
 # pull-image-on-create: false
 # disable-pull-on-run: false
 
+#create CA
+openssl genrsa -out rootCAKey.pem 2048
+openssl req -x509 -sha256 -new -nodes -key rootCAKey.pem -days 3650 -out rootCACert.pem
+
 
 #create client certificate
 openssl genrsa -out client.key 4096;

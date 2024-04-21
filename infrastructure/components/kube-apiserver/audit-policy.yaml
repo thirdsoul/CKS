@@ -1,0 +1,31 @@
+apiVersion: audit.k8s.io/v1
+kind: Policy
+omitStages:
+  - ResponseStarted
+rules:
+- level: None
+  users:
+  - "system:kube-scheduler"
+  - "system:kube-proxy"
+  - "system:apiserver"
+  - "system:kube-controller-manager"
+  - "system:serviceaccount:gatekeeper-system:gatekeeper-admin"
+- level: None
+  userGroups: ["system:nodes"]
+- level: None
+  resources:
+  - group: ""
+    resources: ["events"]
+- level: None
+  verbs: ["get", "watch", "list"]
+- level: Metadata
+  resources:
+  - group: ""
+    resources: ["pods","configmaps"]
+  - group: "apps"
+    resources: ["deployments","replicasets"]
+- level: RequestResponse
+  resources:
+  - group: ""
+    resources: ["secrets","serviceaccounts","clusterroles","roles","rolebindings"]
+- level: None

@@ -1,0 +1,17 @@
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy    #DEPRECATED. use Dynamic Admission controllers, or OPA, or Kyverno, or PodSecurity Admission + Pod Security Standards
+metadata:
+  name: example
+spec:
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsUser:
+    rule: RunAsNonRoot
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  runAsUser:
+    rule: RunAsNonRoot
+  fsGroup:
+    rule: RunAsAny
