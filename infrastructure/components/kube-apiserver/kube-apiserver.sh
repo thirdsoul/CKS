@@ -14,6 +14,19 @@
 # API calls via this port use TLS and go through all three phases of the kube-apiserver.
 
 
+# Authentication
+# - Defaults to x.509, but webhook is popular
+# - Returns a 401 error if not valid.
+# Authorization
+# - Defaults to RBAC for user requests
+# - Defaults to Node for cluster requests
+# - Returns a 403 error if the request is not authorized
+# - Webhook is also popular.
+# Admission controllers
+# - Several compiled into the container
+# - Mutating webhook.
+
+
 kube-apiserver.yaml
 spec:
   containers:

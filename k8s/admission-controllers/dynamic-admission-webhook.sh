@@ -48,6 +48,12 @@ metadata:
   name: "pod-policy.example.com
 webhooks:
 - name: "pod-policy.example.com
+  rules:
+  - apiGroups:   [""]
+    apiVersions: ["v1"]
+    operations:  ["CREATE"]
+    resources:   ["pods"]
+    scope:       "Namespaced"
   clientConfig:
     service:
       namespace: "webhook-namespace"
